@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import ProgressBar from "react-bootstrap/ProgressBar";
 
 class AnsweredPoll extends Component {
   render() {
@@ -7,44 +8,31 @@ class AnsweredPoll extends Component {
       <div>
         <div className="tweet">
           <img
-            src="https://tylermcginnis.com/would-you-rather/sarah.jpg"
-            alt={`Avatar of ..`}
+            src={this.props.user.avatarURL}
+            alt={`Avatar of ${this.props.user.name}`}
             className="avatar"
           />
           <div className="tweet-info">
             <div>
-              <p>Asked by Sarah Samir</p>
+              <p>{`Asked by ${this.props.user.name}`}</p>
               <p>
                 <strong>Results:</strong>
               </p>
               <div style={{ marginBottom: 20 }}>
-                <span>Would u rather option 1 ?</span>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped bg-success"
-                    role="progressbar"
-                    //max 170
-                    style={{ width: 100 }}
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <span>2 out 3</span>
+                <span>{this.props.question.optionOne.text}</span>
+                <ProgressBar
+                  now={this.props.optionOnePer}
+                  label={`${this.props.optionOnePer}%`}
+                />
+                <span>{`${this.props.question.optionOne.votes.length} out of ${this.props.totalVotes}`}</span>
               </div>
               <div style={{ marginBottom: 20 }}>
-                <span>Would u rather option 2 ?</span>
-                <div class="progress">
-                  <div
-                    class="progress-bar progress-bar-striped bg-success"
-                    role="progressbar"
-                    style={{ width: 25 }}
-                    aria-valuenow="25"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <span>1 out 3</span>
+                <span>{this.props.question.optionTwo.text}</span>
+                <ProgressBar
+                  now={this.props.optionTwoPer}
+                  label={`${this.props.optionTwoPer}%`}
+                />
+                <span>{`${this.props.question.optionTwo.votes.length} out of ${this.props.totalVotes}`}</span>
               </div>
             </div>
             <div className="tweet-icons"></div>
@@ -54,4 +42,25 @@ class AnsweredPoll extends Component {
     );
   }
 }
-export default connect(null)(AnsweredPoll);
+
+function mapStateToProps({ questions, users, authedUser }, { id }) {
+  return {
+    question: questions[id],
+    user: users[questions[id].author],
+    authedUser: authedUser,
+    totalVotes: [...questions[id].optionOne.votes, ...questions[id].optionTwo.votes]
+    .length,
+    optionOnePer: 
+      (questions[id].optionOne.votes.length /
+        [...questions[id].optionOne.votes, ...questions[id].optionTwo.votes]
+          .length) *
+      100,
+    optionTwoPer:
+      (questions[id].optionTwo.votes.length /
+        [...questions[id].optionOne.votes, ...questions[id].optionTwo.votes]
+          .length) *
+      100,
+  };
+}
+
+export default connect(mapStateToProps)(AnsweredPoll);

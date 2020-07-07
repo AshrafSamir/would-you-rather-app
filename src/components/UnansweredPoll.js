@@ -1,7 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { handleSaveAnswer } from "../actions/shared";
 
 class UnansweredPoll extends Component {
+
+  state = {
+    answer: "optionOne"
+  }
+  handleSelection = (e) => {
+    const ans = e.target.value
+    this.setState({
+      answer: ans
+    })
+    
+  }
+  handleSubmit = () => {
+    const currUser = this.props.currUser
+    const qid = this.props.id
+    const answer = this.state.answer
+    this.props.dispatch(handleSaveAnswer({currUser, qid, answer}))
+  
+    
+  }
   render() {
     return (
       <div className="tweet">
@@ -17,7 +37,7 @@ class UnansweredPoll extends Component {
               <strong>Would you rather ...</strong>
             </p>
 
-            <form>
+            <form onSubmit={this.handleSubmit}>
               {" "}
               <div className="form-check">
                 <input
@@ -25,7 +45,8 @@ class UnansweredPoll extends Component {
                   type="radio"
                   name="exampleRadios"
                   id="exampleRadios1"
-                  value="option1"
+                  value="optionOne"
+                  onClick = {this.handleSelection}
                   defaultChecked
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
@@ -38,7 +59,8 @@ class UnansweredPoll extends Component {
                   type="radio"
                   name="exampleRadios"
                   id="exampleRadios1"
-                  value="option1"
+                  value="optionTwo"
+                  onClick = {this.handleSelection}
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
                   {this.props.question.optionTwo.text}
@@ -56,10 +78,12 @@ class UnansweredPoll extends Component {
   }
 }
 
-function mapStateToProps({ questions, users }, { id }) {
+function mapStateToProps({ questions, users, authedUser }, { id }) {
   return {
     question: questions[id],
     user: users[questions[id].author],
+    currUser: authedUser,
+     
   };
 }
 
