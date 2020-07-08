@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 class AnsweredPoll extends Component {
+
   render() {
     return (
       <div>

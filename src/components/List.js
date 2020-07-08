@@ -1,69 +1,61 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import UnasnweredPoll from "./UnansweredPoll";
-import AnsnweredPoll from "./AnsweredPoll";
 import { Link } from "react-router-dom";
+import ViewPoll from "./ViewPoll";
 //import "bootstrap/dist/css/bootstrap.min.css";
 //import "jquery/dist/jquery.min.js";
 //import "bootstrap/dist/js/bootstrap.min.js";
 
 class List extends Component {
-  state = {
-    unansweredList: [],
-    AnsnweredList: [],
-  };
-  handleLists = () => {
-    this.setState({
-      unansweredList: this.props.allQuestions.filter((Q) => {
-        return !(Q in this.props.allUser[this.props.currUser].answers);
-      }),
-      AnsnweredList: this.props.allQuestions.filter((Q) => {
-        return Q in this.props.allUser[this.props.currUser].answers;
-      }),
-    });
-  };
   render() {
+    let unansweredList = [];
+    let answeredList = [];
+    if (this.props.allUser[this.props.currUser] !== undefined) {
+      unansweredList = this.props.allQuestions.filter((Q) => {
+        return !(Q in this.props.allUser[this.props.currUser].answers);
+      });
+      answeredList = this.props.allQuestions.filter((Q) => {
+        return Q in this.props.allUser[this.props.currUser].answers;
+      });
+    }
+
     return (
       <div>
-        <Router>
-          <h3 className="center">Your Questions</h3>
-          <ul className="nav nav-tabs">
+        
+          <ul className="nav nav-tabs" style={{ width: "25%", margin: "auto" }}>
             <li className="nav-item">
-              
-                <Link to="/Unanswered" onClick={this.handleLists} className="nav-link active" href="#">
-                  Unanswered
-                </Link>
-            
+              <Link to="/home" className="nav-link active" href="#">
+                Unanswered
+              </Link>
             </li>
             <li className="nav-item">
-              
-                <Link to ="/Answered" onClick={this.handleLists} className="nav-link" href="#">
-                  Answered
-                </Link>
-              
+              <Link to="/home/Answered" className="nav-link" href="#">
+                Answered
+              </Link>
             </li>
           </ul>
 
           <ul className="dashboard-list">
-            {this.state.unansweredList.map((id) => (
+            {unansweredList.map((id) => (
               <li key={id}>
                 <Route
-                  path="/Unanswered"
-                  component={() => <UnasnweredPoll id={id} />}
+                  exact
+                  path="/home"
+                  component={() => <ViewPoll comp="UnansweredPoll" id={id} />}
                 />
               </li>
             ))}
-            {this.state.AnsnweredList.map((id) => (
+            {answeredList.map((id) => (
               <li key={id}>
                 <Route
-                  path="/Answered"
-                  component={() => <AnsnweredPoll id={id} />}
+                  path="/home/Answered"
+                  component={() => <ViewPoll comp="AnsweredPoll" id={id} />}
                 />
               </li>
             ))}
           </ul>
-        </Router>
+        
       </div>
     );
   }

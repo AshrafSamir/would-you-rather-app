@@ -1,8 +1,15 @@
 import React, { Component } from "react";
-import { connect } from "react-redx";
+import List from "./List";
+import { connect } from "react-redux";
 
 class Home extends Component {
-  render() {}
+  render() {
+    return (
+      <div>
+        <List />
+      </div>
+    );
+  }
 }
 
 export default connect(null)(Home);

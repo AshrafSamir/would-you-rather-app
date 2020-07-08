@@ -3,26 +3,24 @@ import { connect } from "react-redux";
 import { handleSaveAnswer } from "../actions/shared";
 
 class UnansweredPoll extends Component {
-
   state = {
-    answer: "optionOne"
-  }
+    answer: "optionOne",
+  };
   handleSelection = (e) => {
-    const ans = e.target.value
+    const ans = e.target.value;
     this.setState({
-      answer: ans
-    })
-    
-  }
+      answer: ans,
+    });
+  };
   handleSubmit = () => {
-    const currUser = this.props.currUser
-    const qid = this.props.id
-    const answer = this.state.answer
-    this.props.dispatch(handleSaveAnswer({currUser, qid, answer}))
-  
-    
-  }
+    const currUser = this.props.currUser;
+    const qid = this.props.id;
+    const answer = this.state.answer;
+    this.props.dispatch(handleSaveAnswer({ currUser, qid, answer }));
+  };
+
   render() {
+
     return (
       <div className="tweet">
         <img
@@ -46,7 +44,7 @@ class UnansweredPoll extends Component {
                   name="exampleRadios"
                   id="exampleRadios1"
                   value="optionOne"
-                  onClick = {this.handleSelection}
+                  onClick={this.handleSelection}
                   defaultChecked
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
@@ -60,7 +58,7 @@ class UnansweredPoll extends Component {
                   name="exampleRadios"
                   id="exampleRadios1"
                   value="optionTwo"
-                  onClick = {this.handleSelection}
+                  onClick={this.handleSelection}
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
                   {this.props.question.optionTwo.text}
@@ -83,7 +81,6 @@ function mapStateToProps({ questions, users, authedUser }, { id }) {
     question: questions[id],
     user: users[questions[id].author],
     currUser: authedUser,
-     
   };
 }
 
