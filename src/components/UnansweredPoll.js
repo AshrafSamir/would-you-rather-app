@@ -12,31 +12,32 @@ class UnansweredPoll extends Component {
       answer: ans,
     });
   };
+
   handleSubmit = () => {
-    const currUser = this.props.currUser;
-    const qid = this.props.id;
-    const answer = this.state.answer;
-    this.props.dispatch(handleSaveAnswer({ currUser, qid, answer }));
+    //const currUser = currUser;
+    //const qid = this.props.match.params.id;
+    //const answer = this.state.answer;
+    ///this.props.dispatch(handleSaveAnswer({ currUser, qid, answer }));
   };
 
   render() {
+    const { users, questions, currUser, match } = this.props;
+
+    const question = questions[match.params.id];
+    const user = users[questions[match.params.id].author];
+    const authedUser = currUser;
 
     return (
       <div className="tweet">
-        <img
-          src={this.props.user.avatarURL}
-          alt={`Avatar of ..`}
-          className="avatar"
-        />
+        <img src={user.avatarURL} alt={`Avatar of ..`} className="avatar" />
         <div className="tweet-info">
           <div>
-            <p>{this.props.user.name}</p>
+            <p>{user.name}</p>
             <p>
               <strong>Would you rather ...</strong>
             </p>
 
             <form onSubmit={this.handleSubmit}>
-              {" "}
               <div className="form-check">
                 <input
                   className="form-check-input"
@@ -48,7 +49,7 @@ class UnansweredPoll extends Component {
                   defaultChecked
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
-                  {this.props.question.optionOne.text}
+                  {question.optionOne.text}
                 </label>
               </div>
               <div className="form-check">
@@ -61,7 +62,7 @@ class UnansweredPoll extends Component {
                   onClick={this.handleSelection}
                 />
                 <label className="form-check-label" htmlFor="exampleRadios1">
-                  {this.props.question.optionTwo.text}
+                  {question.optionTwo.text}
                 </label>
               </div>
               <button type="submit" className="btn btn-success">
@@ -76,10 +77,10 @@ class UnansweredPoll extends Component {
   }
 }
 
-function mapStateToProps({ questions, users, authedUser }, { id }) {
+function mapStateToProps({ questions, users, authedUser }, { match }) {
   return {
-    question: questions[id],
-    user: users[questions[id].author],
+    questions: questions,
+    users: users,
     currUser: authedUser,
   };
 }

@@ -16,6 +16,7 @@ class DashBoard extends Component {
   }
 }
 function mapStateToProps({ users }) {
+
   return {
     users: Object.keys(users).sort((a, b) => {
       return (

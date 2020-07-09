@@ -44,21 +44,21 @@ class AnsweredPoll extends Component {
   }
 }
 
-function mapStateToProps({ questions, users, authedUser }, { id }) {
+function mapStateToProps({ questions, users, authedUser }, { match }) {
   return {
-    question: questions[id],
-    user: users[questions[id].author],
+    question: questions[match.params.id],
+    user: users[questions[match.params.id].author],
     authedUser: authedUser,
-    totalVotes: [...questions[id].optionOne.votes, ...questions[id].optionTwo.votes]
+    totalVotes: [...questions[match.params.id].optionOne.votes, ...questions[match.params.id].optionTwo.votes]
     .length,
     optionOnePer: 
-      (questions[id].optionOne.votes.length /
-        [...questions[id].optionOne.votes, ...questions[id].optionTwo.votes]
+      (questions[match.params.id].optionOne.votes.length /
+        [...questions[match.params.id].optionOne.votes, ...questions[match.params.id].optionTwo.votes]
           .length) *
       100,
     optionTwoPer:
-      (questions[id].optionTwo.votes.length /
-        [...questions[id].optionOne.votes, ...questions[id].optionTwo.votes]
+      (questions[match.params.id].optionTwo.votes.length /
+        [...questions[match.params.id].optionOne.votes, ...questions[match.params.id].optionTwo.votes]
           .length) *
       100,
   };

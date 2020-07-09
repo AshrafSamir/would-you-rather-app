@@ -9,7 +9,7 @@ class ViewPoll extends Component {
   render() {
     return (
       <div className="tweet">
-        <Router>
+        
           <img
             src={this.props.user.avatarURL}
             alt={`Avatar of ..`}
@@ -24,17 +24,8 @@ class ViewPoll extends Component {
               <label className="form-check-label" htmlFor="exampleRadios1">
                 ...{this.props.question.optionOne.text}...
               </label>
-              <Link
-                to={{
-                  pathname: `/${this.props.comp}`,
-                  state: {
-                    id: this.props.id
-                  }
-                }}
-                className="nav-link active"
-                href="#"
-              >
-                <button
+              <Link to={`/${this.props.comp}/${this.props.id}`}>
+              <button
                   type="button"
                   style={{ display: "block" }}
                   className="btn btn-success"
@@ -42,21 +33,12 @@ class ViewPoll extends Component {
                   View Poll
                 </button>
               </Link>
+              
 
-              <Route
-                exact
-                path="/UnansweredPoll"
-                component={() => <UnansweredPoll id={this.props.id} />}
-              />
-              <Route
-                exact
-                path="/AnsweredPoll"
-                component={() => <AnsweredPoll id={this.props.id} />}
-              />
             </div>
             <div className="tweet-icons"></div>
           </div>
-        </Router>
+        
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import AnsweredPoll from "./AnsweredPoll";
 import UnansweredPoll from "./UnansweredPoll";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -19,11 +19,15 @@ class App extends Component {
     return (
       <div>
         <Router>
-          <Navbar />
-          <Route path="/home" component={Home} />
-          <Route path="/newQuestion" component={NewQuestion} />
-          <Route path="/DashBoard" component={DashBoard} />
+          <Fragment>
+            <Navbar />
 
+            <Route path={["/home","/","/home/Unanswered","/home/Answered"]} exact component={Home} />
+            <Route path="/newQuestion" component={NewQuestion} />
+            <Route path="/DashBoard" component={DashBoard} />
+            <Route path="/UnansweredPoll/:id" component={UnansweredPoll} />
+            <Route path="/AnsweredPoll/:id" component={AnsweredPoll} />
+          </Fragment>
         </Router>
       </div>
     );

@@ -22,40 +22,39 @@ class List extends Component {
 
     return (
       <div>
-        
-          <ul className="nav nav-tabs" style={{ width: "25%", margin: "auto" }}>
-            <li className="nav-item">
-              <Link to="/home" className="nav-link active" href="#">
-                Unanswered
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/home/Answered" className="nav-link" href="#">
-                Answered
-              </Link>
-            </li>
-          </ul>
+        <ul className="nav nav-tabs" style={{ width: "25%", margin: "auto" }}>
+          <li className="nav-item">
+            <Link to="/home/Unanswered" className="nav-link active" href="#">
+              Unanswered
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/home/Answered" className="nav-link" href="#">
+              Answered
+            </Link>
+          </li>
+        </ul>
 
-          <ul className="dashboard-list">
-            {unansweredList.map((id) => (
-              <li key={id}>
-                <Route
-                  exact
-                  path="/home"
-                  component={() => <ViewPoll comp="UnansweredPoll" id={id} />}
-                />
-              </li>
-            ))}
-            {answeredList.map((id) => (
-              <li key={id}>
-                <Route
-                  path="/home/Answered"
-                  component={() => <ViewPoll comp="AnsweredPoll" id={id} />}
-                />
-              </li>
-            ))}
-          </ul>
-        
+        <ul className="dashboard-list">
+          {unansweredList.map((id) => (
+            <li key={id}>
+              <Route
+                exact
+                path={["/home/Unanswered","/home","/"]}
+                component={() => <ViewPoll comp="UnansweredPoll" id={id} />}
+              />
+            </li>
+          ))}
+          {answeredList.map((id) => (
+            <li key={id}>
+              <Route
+                exact
+                path={["/home/Answered"]}
+                component={() => <ViewPoll comp="AnsweredPoll" id={id} />}
+              />
+            </li>
+          ))}
+        </ul>
       </div>
     );
   }
