@@ -3,7 +3,16 @@ import { connect } from "react-redux";
 import ProgressBar from "react-bootstrap/ProgressBar";
 
 class AnsweredPoll extends Component {
-
+  handleOptionOneColor = () => {
+    if(this.props.question.optionOne.votes.includes(this.props.authedUser))
+      return 'green' 
+      else return ''
+  }
+  handleOptionTwoColor = () => {
+    if(this.props.question.optionTwo.votes.includes(this.props.authedUser))
+      return 'green' 
+      else return ''
+  }
   render() {
     return (
       <div>
@@ -20,7 +29,7 @@ class AnsweredPoll extends Component {
                 <strong>Results:</strong>
               </p>
               <div style={{ marginBottom: 20 }}>
-                <span>{this.props.question.optionOne.text}</span>
+                <span style={{color: this.handleOptionOneColor()}}>{this.props.question.optionOne.text}</span>
                 <ProgressBar
                   now={this.props.optionOnePer}
                   label={`${this.props.optionOnePer}%`}
@@ -28,7 +37,7 @@ class AnsweredPoll extends Component {
                 <span>{`${this.props.question.optionOne.votes.length} out of ${this.props.totalVotes}`}</span>
               </div>
               <div style={{ marginBottom: 20 }}>
-                <span>{this.props.question.optionTwo.text}</span>
+                <span style={{color: this.handleOptionTwoColor()}}>{this.props.question.optionTwo.text}</span>
                 <ProgressBar
                   now={this.props.optionTwoPer}
                   label={`${this.props.optionTwoPer}%`}
@@ -49,18 +58,26 @@ function mapStateToProps({ questions, users, authedUser }, { match }) {
     question: questions[match.params.id],
     user: users[questions[match.params.id].author],
     authedUser: authedUser,
-    totalVotes: [...questions[match.params.id].optionOne.votes, ...questions[match.params.id].optionTwo.votes]
-    .length,
-    optionOnePer: 
+    totalVotes: [
+      ...questions[match.params.id].optionOne.votes,
+      ...questions[match.params.id].optionTwo.votes,
+    ].length,
+    optionOnePer: Math.trunc(
       (questions[match.params.id].optionOne.votes.length /
-        [...questions[match.params.id].optionOne.votes, ...questions[match.params.id].optionTwo.votes]
-          .length) *
-      100,
-    optionTwoPer:
+        [
+          ...questions[match.params.id].optionOne.votes,
+          ...questions[match.params.id].optionTwo.votes,
+        ].length) *
+        100
+    ),
+    optionTwoPer: Math.trunc(
       (questions[match.params.id].optionTwo.votes.length /
-        [...questions[match.params.id].optionOne.votes, ...questions[match.params.id].optionTwo.votes]
-          .length) *
-      100,
+        [
+          ...questions[match.params.id].optionOne.votes,
+          ...questions[match.params.id].optionTwo.votes,
+        ].length) *
+        100
+    ),
   };
 }
 

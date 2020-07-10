@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleSaveAnswer } from "../actions/shared";
+import { Link } from "react-router-dom";
 
 class UnansweredPoll extends Component {
   state = {
@@ -14,10 +15,10 @@ class UnansweredPoll extends Component {
   };
 
   handleSubmit = () => {
-    //const currUser = currUser;
-    //const qid = this.props.match.params.id;
-    //const answer = this.state.answer;
-    ///this.props.dispatch(handleSaveAnswer({ currUser, qid, answer }));
+    const authedUser = this.props.currUser;
+    const qid = this.props.id;
+    const answer = this.state.answer;
+    this.props.dispatch(handleSaveAnswer({ authedUser, qid, answer }));
   };
 
   render() {
@@ -37,7 +38,7 @@ class UnansweredPoll extends Component {
               <strong>Would you rather ...</strong>
             </p>
 
-            <form onSubmit={this.handleSubmit}>
+            <form >
               <div className="form-check">
                 <input
                   className="form-check-input"
@@ -65,9 +66,11 @@ class UnansweredPoll extends Component {
                   {question.optionTwo.text}
                 </label>
               </div>
-              <button type="submit" className="btn btn-success">
-                Submit
-              </button>
+              <Link to={`/AnsweredPoll/${this.props.id}`}>
+                <button  onClick={this.handleSubmit} type="submit" className="btn btn-success">
+                  Submit
+                </button>
+              </Link>
             </form>
           </div>
           <div className="tweet-icons"></div>
@@ -82,6 +85,7 @@ function mapStateToProps({ questions, users, authedUser }, { match }) {
     questions: questions,
     users: users,
     currUser: authedUser,
+    id: match.params.id,
   };
 }
 

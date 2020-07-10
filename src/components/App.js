@@ -10,6 +10,7 @@ import Navbar from "./NavBar";
 import NewQuestion from "./NewQuestion";
 import LeaderBoard from "./LeaderBoard";
 import DashBoard from "./DashBoard";
+import LoadingBar from "react-redux-loading-bar";
 
 class App extends Component {
   componentDidMount() {
@@ -18,20 +19,32 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Router>
-          <Fragment>
-            <Navbar />
-
-            <Route path={["/home","/","/home/Unanswered","/home/Answered"]} exact component={Home} />
-            <Route path="/newQuestion" component={NewQuestion} />
-            <Route path="/DashBoard" component={DashBoard} />
-            <Route path="/UnansweredPoll/:id" component={UnansweredPoll} />
-            <Route path="/AnsweredPoll/:id" component={AnsweredPoll} />
-          </Fragment>
-        </Router>
+        <LoadingBar />
+        {this.props.loading === true ? null : (
+          <Router>
+            <Fragment>
+              <Navbar />
+              
+              <Route
+                path={["/home", "/", "/home/Unanswered", "/home/Answered"]}
+                exact
+                component={Home}
+              />
+              <Route path="/newQuestion" component={NewQuestion} />
+              <Route path="/DashBoard" component={DashBoard} />
+              <Route path="/UnansweredPoll/:id" component={UnansweredPoll} />
+              <Route path="/AnsweredPoll/:id" component={AnsweredPoll} />
+            </Fragment>
+          </Router>
+        )}
       </div>
     );
   }
 }
 
-export default connect(null)(App);
+function mapStateToProps({ authedUser }) {
+  return {
+    loading: authedUser === null,
+  };
+}
+export default connect(mapStateToProps)(App);

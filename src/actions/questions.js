@@ -1,5 +1,5 @@
 export const RECEIVE_QUESTIONS = "RECEIVE_QUESTIONS";
-export const SAVE_ANSWER = "SAVE_ANSWER";
+
 
 
 export function receiveQuestions(questions) {
@@ -8,5 +8,8 @@ export function receiveQuestions(questions) {
     questions,
   };
 }
+
+
+
 
   
