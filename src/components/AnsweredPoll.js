@@ -4,15 +4,15 @@ import ProgressBar from "react-bootstrap/ProgressBar";
 
 class AnsweredPoll extends Component {
   handleOptionOneColor = () => {
-    if(this.props.question.optionOne.votes.includes(this.props.authedUser))
-      return 'green' 
-      else return ''
-  }
+    if (this.props.question.optionOne.votes.includes(this.props.authedUser))
+      return "green";
+    else return "";
+  };
   handleOptionTwoColor = () => {
-    if(this.props.question.optionTwo.votes.includes(this.props.authedUser))
-      return 'green' 
-      else return ''
-  }
+    if (this.props.question.optionTwo.votes.includes(this.props.authedUser))
+      return "green";
+    else return "";
+  };
   render() {
     return (
       <div>
@@ -28,16 +28,22 @@ class AnsweredPoll extends Component {
               <p>
                 <strong>Results:</strong>
               </p>
-              <div style={{ marginBottom: 20 }}>
-                <span style={{color: this.handleOptionOneColor()}}>{this.props.question.optionOne.text}</span>
+              <div style={{ marginBottom: 20,color: this.handleOptionOneColor() }}>
+                <span style={{ color: this.handleOptionOneColor() }}>
+                  {this.props.question.optionOne.text}
+                </span>
                 <ProgressBar
                   now={this.props.optionOnePer}
                   label={`${this.props.optionOnePer}%`}
                 />
                 <span>{`${this.props.question.optionOne.votes.length} out of ${this.props.totalVotes}`}</span>
               </div>
-              <div style={{ marginBottom: 20 }}>
-                <span style={{color: this.handleOptionTwoColor()}}>{this.props.question.optionTwo.text}</span>
+              <div
+                style={{ marginBottom: 20, color: this.handleOptionTwoColor() }}
+              >
+                <span style={{ color: this.handleOptionTwoColor() }}>
+                  {this.props.question.optionTwo.text}
+                </span>
                 <ProgressBar
                   now={this.props.optionTwoPer}
                   label={`${this.props.optionTwoPer}%`}

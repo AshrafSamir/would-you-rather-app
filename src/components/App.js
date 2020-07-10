@@ -24,7 +24,7 @@ class App extends Component {
           <Router>
             <Fragment>
               <Navbar />
-              
+              <LoadingBar />
               <Route
                 path={["/home", "/", "/home/Unanswered", "/home/Answered"]}
                 exact

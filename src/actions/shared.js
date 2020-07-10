@@ -3,14 +3,15 @@ import {
   _getUsers,
   getInitialData,
   _saveQuestionAnswer,
+  _saveQuestion,
 } from "../utils/_DATA";
-import { receiveUsers, saveUserData } from "./users";
-import { receiveQuestions, saveQuestionData } from "./questions";
+import { receiveUsers, saveUserData, addQuestion } from "./users";
+import { receiveQuestions, saveQuestionData, newQuestion } from "./questions";
 import { setAuthedUser } from "./authedUser";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 const AUTHED_ID = "sarahedo";
-export const SAVE_ANSWER = "SAVE_ANSWER"
+export const SAVE_ANSWER = "SAVE_ANSWER";
 
 export function handleInitialData() {
   return (dispatch) => {
@@ -30,7 +31,7 @@ export function saveAnswer(answerData) {
     type: SAVE_ANSWER,
     qid: answerData.qid,
     authedUser: answerData.authedUser,
-    answer: answerData.answer
+    answer: answerData.answer,
   };
 }
 
@@ -40,7 +41,18 @@ export function handleSaveAnswer(answer) {
     dispatch(saveAnswer(answer));
 
     return _saveQuestionAnswer(answer).then(() => {
+      dispatch(hideLoading());
+    });
+  };
+}
 
+export function handleNewQuestion(question) {
+  return (dispatch, getState) => {
+    dispatch(showLoading());
+    const {authedUser} = getState()
+    return _saveQuestion(question).then((formattedQuestion) => {
+      dispatch(newQuestion(formattedQuestion));
+      dispatch(addQuestion({authedUser, formattedQuestion}));
       dispatch(hideLoading());
     });
   };
