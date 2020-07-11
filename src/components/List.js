@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import {  Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ViewPoll from "./ViewPoll";
-//import "bootstrap/dist/css/bootstrap.min.css";
-//import "jquery/dist/jquery.min.js";
-//import "bootstrap/dist/js/bootstrap.min.js";
+
 
 class List extends Component {
   render() {

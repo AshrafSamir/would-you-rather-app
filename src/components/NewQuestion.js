@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Redirect } from "react-router-dom";
+
 import { handleNewQuestion } from "../actions/shared";
 import { Link } from "react-router-dom";
-import LoadingBar from "react-redux-loading-bar";
+
 
 class NewQuestion extends Component {
   state = {

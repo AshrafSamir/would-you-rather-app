@@ -8,7 +8,7 @@ class SelectUser extends Component {
     this.props.dispatch(setAuthedUser(e.target.value));
   };
   render() {
-    if(this.props.loading === false)return <Redirect to="/home"/>
+    if (this.props.loading === false) return <Redirect to="/home" />;
     return (
       <div style={{ width: "25%", margin: "auto" }}>
         <label>Select user To Login</label>
@@ -16,7 +16,11 @@ class SelectUser extends Component {
           <select
             onChange={this.handleLogin}
             className="custom-select is-valid"
+            defaultChecked = {null}
           >
+            <option value={null} >
+              Select
+            </option>
             {this.props.usersList.map((id) => (
               <option key={id} value={id}>
                 {this.props.users[id].name}

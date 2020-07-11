@@ -14,14 +14,14 @@ class Navbar extends Component {
           {this.props.loading === true ? null : (
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
-                <a className="navbar-brand">
+                <button className="navbar-brand">
                   <img
                     src={this.props.users[this.props.authedUser].avatarURL}
                     alt={`Avatar of ..`}
                     className="avatar"
                   />
                   <label>{this.props.users[this.props.authedUser].name}</label>
-                </a>
+                </button>
                 <button
                   type="button"
                   className="navbar-toggler"
@@ -42,7 +42,7 @@ class Navbar extends Component {
                       Leader Board
                     </Link>
 
-                    <div class="navbar-nav ml-auto">
+                    <div className="navbar-nav ml-auto">
                       <Link onClick={this.handleLogout} to="/login" className="nav-item nav-link">
                         Logout
                       </Link>

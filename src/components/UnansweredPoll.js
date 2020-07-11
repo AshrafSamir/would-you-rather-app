@@ -25,11 +25,11 @@ class UnansweredPoll extends Component {
   render() {
 
     
-    const { users, questions, currUser, match } = this.props;
+    const { users, questions, match } = this.props;
     if(questions[match.params.id] === undefined )return(<div><Redirect to="/error"/></div>)
     const question = questions[match.params.id];
     const user = users[questions[match.params.id].author];
-    const authedUser = currUser;
+    
 
     return (
       <div className="tweet">

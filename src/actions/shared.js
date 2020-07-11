@@ -1,13 +1,10 @@
 import {
-  _getQuestions,
-  _getUsers,
   getInitialData,
   _saveQuestionAnswer,
   _saveQuestion,
 } from "../utils/_DATA";
-import { receiveUsers, saveUserData, addQuestion } from "./users";
-import { receiveQuestions, saveQuestionData, newQuestion } from "./questions";
-import { setAuthedUser } from "./authedUser";
+import { receiveUsers, addQuestion } from "./users";
+import { receiveQuestions, newQuestion } from "./questions";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 
 

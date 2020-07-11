@@ -1,14 +1,12 @@
 import React, { Component, Fragment } from "react";
 import AnsweredPoll from "./AnsweredPoll";
 import UnansweredPoll from "./UnansweredPoll";
-import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
-import List from "./List";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
 import Home from "./Home";
 import Navbar from "./NavBar";
 import NewQuestion from "./NewQuestion";
-import LeaderBoard from "./LeaderBoard";
 import DashBoard from "./DashBoard";
 import LoadingBar from "react-redux-loading-bar";
 import Error from "./Error";
