@@ -21,9 +21,7 @@ class App extends Component {
       <div>
         <LoadingBar />
         {this.props.loading === true ? (
-          <Router>
-            <Route path="/login" component={SelectUser} />
-          </Router>
+          <SelectUser />
         ) : (
           <Router>
             <Fragment>

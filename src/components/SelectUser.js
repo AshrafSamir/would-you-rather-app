@@ -11,7 +11,7 @@ class SelectUser extends Component {
     if (this.props.loading === false) return <Redirect to="/home" />;
     return (
       <div style={{ width: "25%", margin: "auto" }}>
-        <label>Select user To Login</label>
+        <label>Select user To Login Please</label>
         <div className="tweet">
           <select
             onChange={this.handleLogin}
