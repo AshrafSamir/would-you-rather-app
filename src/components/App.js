@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from "react";
-import AnsweredPoll from "./AnsweredPoll";
-import UnansweredPoll from "./UnansweredPoll";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
@@ -11,6 +9,7 @@ import DashBoard from "./DashBoard";
 import LoadingBar from "react-redux-loading-bar";
 import Error from "./Error";
 import SelectUser from "./SelectUser";
+import QuestionDetails from "./QuestionDetails ";
 
 class App extends Component {
   componentDidMount() {
@@ -21,22 +20,16 @@ class App extends Component {
       <div>
         <LoadingBar />
         {this.props.loading === true ? (
-          <SelectUser />
+          <div>
+            <Router>
+              <Navbar />
+              <SelectUser />
+            </Router>
+          </div>
         ) : (
           <Router>
             <Fragment>
               <Route
-                path={[
-                  "/home",
-                  "/",
-                  "/home/Unanswered",
-                  "/home/Answered",
-                  "/newQuestion",
-                  "/DashBoard",
-                  "/UnansweredPoll/:id",
-                  "/AnsweredPoll/:id",
-                ]}
-                exact
                 component={() => {
                   return <Navbar authedUser={this.props.authedUser} />;
                 }}
@@ -48,10 +41,12 @@ class App extends Component {
                 exact
                 component={Home}
               />
-              <Route path="/newQuestion" component={NewQuestion} />
-              <Route path="/DashBoard" component={DashBoard} />
-              <Route path="/UnansweredPoll/:id" component={UnansweredPoll} />
-              <Route path="/AnsweredPoll/:id" component={AnsweredPoll} />
+              <Route path="/add" component={NewQuestion} />
+              <Route path="/leaderboard" component={DashBoard} />
+              <Route
+                path="/questions/:question_id"
+                component={QuestionDetails}
+              />
               <Route path="/error" component={Error} />
             </Fragment>
           </Router>

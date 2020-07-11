@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import { handleNewQuestion } from "../actions/shared";
 import { Link } from "react-router-dom";
 
-
 class NewQuestion extends Component {
   state = {
     optionOne: "",
@@ -16,7 +15,8 @@ class NewQuestion extends Component {
       optionTwoText: this.state.optionTwo,
       author: this.props.authedUser,
     };
-    this.props.dispatch(handleNewQuestion(data));
+    if (((data.optionOneText && data.optionTwoText) !== "" && !(data.optionOneText === data.optionTwoText)))
+      this.props.dispatch(handleNewQuestion(data));
   };
   handleStateOptionOne = (e) => {
     const text = e.target.value;
@@ -36,7 +36,6 @@ class NewQuestion extends Component {
         style={{ width: "25%", margin: "auto", marginTop: 30 }}
         className="tweet"
       >
-        
         <form style={{ width: "100%", margin: "auto" }}>
           <h3>Create New Question</h3>
           <div className="form-group">

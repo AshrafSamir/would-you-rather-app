@@ -22,12 +22,12 @@ class List extends Component {
       <div>
         <ul className="nav nav-tabs" style={{ width: "25%", margin: "auto" }}>
           <li className="nav-item">
-            <Link to="/home/Unanswered" className="nav-link active" href="#">
+            <Link to="/home/Unanswered" className="nav-link active" >
               Unanswered
             </Link>
           </li>
           <li className="nav-item">
-            <Link to="/home/Answered" className="nav-link" href="#">
+            <Link to="/home/Answered" className="nav-link" >
               Answered
             </Link>
           </li>

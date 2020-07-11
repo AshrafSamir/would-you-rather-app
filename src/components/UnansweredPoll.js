@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { handleSaveAnswer } from "../actions/shared";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 class UnansweredPoll extends Component {
@@ -25,10 +25,10 @@ class UnansweredPoll extends Component {
   render() {
 
     
-    const { users, questions, match } = this.props;
-    if(questions[match.params.id] === undefined )return(<div><Redirect to="/error"/></div>)
-    const question = questions[match.params.id];
-    const user = users[questions[match.params.id].author];
+    const { users, questions, id } = this.props;
+    
+    const question = questions[id];
+    const user =  users[questions[id].author];
     
 
     return (
@@ -70,7 +70,7 @@ class UnansweredPoll extends Component {
                   {question.optionTwo.text}
                 </label>
               </div>
-              <Link to={`/AnsweredPoll/${this.props.id}`}>
+              <Link to={`/questions/${this.props.id}`}>
                 <button  onClick={this.handleSubmit} type="submit" className="btn btn-success">
                   Submit
                 </button>
@@ -84,12 +84,12 @@ class UnansweredPoll extends Component {
   }
 }
 
-function mapStateToProps({ questions, users, authedUser }, { match }) {
+function mapStateToProps({ questions, users, authedUser }, { id }) {
   return {
     questions: questions,
     users: users,
     currUser: authedUser,
-    id: match.params.id,
+    id: id,
   };
 }
 

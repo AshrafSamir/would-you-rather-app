@@ -21,7 +21,7 @@ class ViewPoll extends Component {
               <label className="form-check-label" htmlFor="exampleRadios1">
                 ...{this.props.question.optionOne.text}...
               </label>
-              <Link to={`/${this.props.comp}/${this.props.id}`}>
+              <Link to={`/questions/${this.props.id}`}>
               <button
                   type="button"
                   style={{ display: "block" }}

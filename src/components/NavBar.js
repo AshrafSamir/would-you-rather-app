@@ -8,6 +8,9 @@ class Navbar extends Component {
     this.props.dispatch(setAuthedUser(null));
   };
   render() {
+    const { authedUser } = this.props;
+    const user = this.props.users[authedUser];
+
     return (
       <div className="bs-example">
         <nav className="navbar navbar-expand-md navbar-light bg-light">
@@ -15,12 +18,15 @@ class Navbar extends Component {
             <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div className="navbar-nav">
                 <button className="navbar-brand">
-                  <img
-                    src={this.props.users[this.props.authedUser].avatarURL}
-                    alt={`Avatar of ..`}
-                    className="avatar"
-                  />
-                  <label>{this.props.users[this.props.authedUser].name}</label>
+                  {user ? (
+                    <img
+                      src={user.avatarURL}
+                      alt={`Avatar of ..`}
+                      className="avatar"
+                    />
+                  ) : null}
+
+                  <label>{user ? user.name : "Login"}</label>
                 </button>
                 <button
                   type="button"
@@ -35,16 +41,21 @@ class Navbar extends Component {
                     <Link to="/home" className="nav-item nav-link active">
                       Home <span className="sr-only">(current)</span>
                     </Link>
-                    <Link to="/newQuestion" className="nav-item nav-link">
+                    <Link to="/add" className="nav-item nav-link">
                       New Question
                     </Link>
-                    <Link to="/DashBoard" className="nav-item nav-link">
+                    <Link to="/leaderboard" className="nav-item nav-link">
                       Leader Board
                     </Link>
 
                     <div className="navbar-nav ml-auto">
-                      <Link onClick={this.handleLogout} to="/login" className="nav-item nav-link">
-                        Logout
+                      <Link
+                        onClick={this.handleLogout}
+                        to="/login"
+                        className="nav-item nav-link"
+                      >
+                        {user ? <p>Logout</p> : <p>Login</p>}
+                        
                       </Link>
                     </div>
                   </div>
