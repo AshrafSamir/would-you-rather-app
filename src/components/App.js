@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import AnsweredPoll from "./AnsweredPoll";
 import UnansweredPoll from "./UnansweredPoll";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import List from "./List";
 import { connect } from "react-redux";
 import { handleInitialData } from "../actions/shared";
@@ -11,6 +11,8 @@ import NewQuestion from "./NewQuestion";
 import LeaderBoard from "./LeaderBoard";
 import DashBoard from "./DashBoard";
 import LoadingBar from "react-redux-loading-bar";
+import Error from "./Error";
+import SelectUser from "./SelectUser";
 
 class App extends Component {
   componentDidMount() {
@@ -20,11 +22,31 @@ class App extends Component {
     return (
       <div>
         <LoadingBar />
-        {this.props.loading === true ? null : (
+        {this.props.loading === true ? (
+          <Router>
+            <Route path="/login" component={SelectUser} />
+          </Router>
+        ) : (
           <Router>
             <Fragment>
-              <Navbar />
+              <Route
+                path={[
+                  "/home",
+                  "/",
+                  "/home/Unanswered",
+                  "/home/Answered",
+                  "/newQuestion",
+                  "/DashBoard",
+                  "/UnansweredPoll/:id",
+                  "/AnsweredPoll/:id",
+                ]}
+                exact
+                component={() => {
+                  return <Navbar authedUser={this.props.authedUser} />;
+                }}
+              />
               <LoadingBar />
+              <Route path="/login" component={SelectUser} />
               <Route
                 path={["/home", "/", "/home/Unanswered", "/home/Answered"]}
                 exact
@@ -34,6 +56,7 @@ class App extends Component {
               <Route path="/DashBoard" component={DashBoard} />
               <Route path="/UnansweredPoll/:id" component={UnansweredPoll} />
               <Route path="/AnsweredPoll/:id" component={AnsweredPoll} />
+              <Route path="/error" component={Error} />
             </Fragment>
           </Router>
         )}
@@ -45,6 +68,7 @@ class App extends Component {
 function mapStateToProps({ authedUser }) {
   return {
     loading: authedUser === null,
+    authedUser: authedUser,
   };
 }
 export default connect(mapStateToProps)(App);

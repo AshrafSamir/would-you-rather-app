@@ -10,7 +10,7 @@ import { receiveQuestions, saveQuestionData, newQuestion } from "./questions";
 import { setAuthedUser } from "./authedUser";
 import { showLoading, hideLoading } from "react-redux-loading-bar";
 
-const AUTHED_ID = "sarahedo";
+
 export const SAVE_ANSWER = "SAVE_ANSWER";
 
 export function handleInitialData() {
@@ -20,7 +20,6 @@ export function handleInitialData() {
     return getInitialData().then(({ users, questions }) => {
       dispatch(receiveUsers(users));
       dispatch(receiveQuestions(questions));
-      dispatch(setAuthedUser(AUTHED_ID));
       dispatch(hideLoading());
     });
   };
